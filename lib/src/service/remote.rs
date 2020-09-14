@@ -88,6 +88,7 @@ impl TrustlessService for RemoteTrustlessService {
       store_client?,
       self.runtime.clone(),
       self.local_set.clone(),
+      name,
     )?))
   }
 
@@ -204,6 +205,7 @@ pub struct RemoteSecretsStore {
   client: secrets_store::Client,
   runtime: Rc<RefCell<Runtime>>,
   local_set: Rc<LocalSet>,
+  name: String,
 }
 
 impl RemoteSecretsStore {
@@ -211,16 +213,22 @@ impl RemoteSecretsStore {
     client: secrets_store::Client,
     runtime: Rc<RefCell<Runtime>>,
     local_set: Rc<LocalSet>,
+    name: &str,
   ) -> ServiceResult<RemoteSecretsStore> {
     Ok(RemoteSecretsStore {
       client,
       runtime,
       local_set,
+      name: name.to_string(),
     })
   }
 }
 
 impl SecretsStore for RemoteSecretsStore {
+  fn name(&self) -> String {
+    self.name.clone()
+  }
+
   fn status(&self) -> SecretStoreResult<Status> {
     let mut rt = self.runtime.borrow_mut();
     let request = self.client.status_request();

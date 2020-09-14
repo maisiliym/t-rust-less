@@ -16,6 +16,7 @@ use std::str::FromStr;
 
 const OTP_URL_SCHEME: &str = "otpauth";
 
+#[derive(Debug)]
 pub enum OTPType {
   TOTP { period: u32 },
   HOTP { counter: u64 },
@@ -190,4 +191,10 @@ impl OTPAuthUrl {
   fn find_required_parameter<T: FromStr>(url: &Url, name: &str) -> OTPResult<T> {
     Self::find_parameter(url, name)?.ok_or_else(|| OTPError::MissingParameter(name.to_string()))
   }
+}
+
+impl std::fmt::Debug for OTPAuthUrl {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        write!(f, "OTP(type={:?} algorithm={} issuer={:?} digits={})", self.otp_type, self.algorithm, self.issuer, self.digits)
+    }
 }

@@ -1,0 +1,16 @@
+[package]
+name = "t-rust-less-ui"
+version = "0.1.6"
+authors = ["Untoldwind <landru@untoldwind.net>"]
+edition = "2018"
+
+[dependencies]
+log = "0"
+env_logger = "0"
+t-rust-less-lib = { path = "../lib" }
+iced = { git = "https://github.com/hecrj/iced.git", features = ["debug", "tokio"] }
+iced_native = { git = "https://github.com/hecrj/iced.git", features = ["debug"] }
+chrono = { version = "0" }
+
+[dev-dependencies]
+spectral = "0"

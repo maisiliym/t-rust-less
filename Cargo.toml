@@ -5,6 +5,7 @@ members = [
     "daemon",
     "native",
     "experiments",
+    "ui",
 ]
 
 [profile.release]

@@ -63,6 +63,10 @@ impl MultiLaneSecretsStore {
 }
 
 impl SecretsStore for MultiLaneSecretsStore {
+  fn name(&self) -> String {
+    self.name.clone()
+  }
+
   fn status(&self) -> SecretStoreResult<Status> {
     let unlocked_user = self.unlocked_user.read()?;
 

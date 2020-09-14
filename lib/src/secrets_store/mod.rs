@@ -19,6 +19,8 @@ use crate::block_store::open_block_store;
 use crate::memguard::SecretBytes;
 
 pub trait SecretsStore: std::fmt::Debug {
+  fn name(&self) -> String;
+
   fn status(&self) -> SecretStoreResult<Status>;
 
   fn lock(&self) -> SecretStoreResult<()>;
